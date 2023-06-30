@@ -22,8 +22,8 @@ google_login_url = 'https://accounts.google.com'
 driver.get(google_login_url)
 
 while google_login_url in driver.current_url:
-    time.sleep(3)
     if google_login_url not in driver.current_url:
         break
+    time.sleep(3)
 
 driver.close()
