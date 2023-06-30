@@ -6,6 +6,8 @@ Update the Metabase session by Signing in with Google and Saving it to Rentry au
 - Step 2: Prepare `metabase_url.txt` and `rentry.txt`.
 - Step 3: Run the `refresh_metabase_session.py` to refresh the Metabase session.
 
+*Note: The `create_google_profile` is not working for personal Gmail, but working with a Google Workspace account.*
+
 ## Example files
 `rentry.txt`
 - URL
