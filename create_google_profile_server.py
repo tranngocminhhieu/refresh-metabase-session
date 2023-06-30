@@ -1,5 +1,5 @@
 import os
-import time
+from sys import platform
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -11,7 +11,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium_stealth import stealth
 from webdriver_manager.chrome import ChromeDriverManager
-from sys import platform
 
 # Build driver
 options = Options()
@@ -46,9 +45,11 @@ if headless_mode:
             fix_hairline=True,
             )
 
+
 def get_element(xpath, timeout=10):
     _element = WebDriverWait(driver=driver, timeout=timeout).until(EC.presence_of_element_located((By.XPATH, xpath)))
     return _element
+
 
 def user_send_keys():
     CONTROL = Keys.COMMAND if platform == 'darwin' else Keys.CONTROL
@@ -66,6 +67,7 @@ def user_send_keys():
     else:
         actions.send_keys(user_input).perform()
     return user_input
+
 
 google_login_url = 'https://accounts.google.com'
 driver.get(google_login_url)
