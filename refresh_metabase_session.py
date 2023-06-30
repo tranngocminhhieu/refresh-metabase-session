@@ -9,6 +9,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium_stealth import stealth
 from webdriver_manager.chrome import ChromeDriverManager
@@ -36,6 +37,7 @@ if headless_mode:
     options.add_experimental_option('useAutomationExtension', False)
 
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+actions = ActionChains(driver)
 
 if headless_mode:
     stealth(driver=driver,
@@ -86,19 +88,16 @@ metabase_session = driver.get_cookie('metabase.SESSION')['value']
 # Update Metabase session to Rentry
 print('Update Metabase session to Rentry')
 driver.get(rentry_url)
-## Clear content and click to generate <pre><span>
-xpath = '//*[@id="text"]/div/div[5]/div[1]/div/div/div/div[5]'
-element = get_element(xpath=xpath)
-element.send_keys(CONTROL + 'a')
+actions.send_keys(Keys.TAB).perform()
+actions.send_keys(Keys.TAB).perform()
+actions.send_keys(Keys.TAB).perform()
+actions.send_keys(Keys.TAB).perform()
 time.sleep(1)
-element.send_keys(Keys.DELETE)
+actions.key_down(CONTROL).send_keys('a').key_up(CONTROL).perform()
 time.sleep(1)
-element.click()
-time.sleep(3)
-
-## Input Credentials
-element = get_element(xpath='//*[@id="text"]/div/div[5]/div[1]/div/div/div/div[5]/pre/span')
-element.send_keys(metabase_session)
+actions.send_keys(Keys.DELETE).perform()
+time.sleep(1)
+actions.send_keys(metabase_session).perform()
 time.sleep(3)
 
 ## Click edit code
@@ -109,9 +108,6 @@ time.sleep(3)
 
 ## Save
 get_element(xpath='//*[@id="submitButton"]').click()
-time.sleep(3)
-
-## Wait to see success message
-element = get_element(xpath='/html/body/div/div/div[1]/div[1]/div/ul/li')
+time.sleep(5)
 
 driver.close()
