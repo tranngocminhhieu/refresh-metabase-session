@@ -161,3 +161,4 @@ cython_debug/
 metabase_url.txt
 profile
 rentry.txt
+*.zip
