@@ -1,6 +1,7 @@
 # Import packages
 import os
 import time
+from sys import platform
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -13,7 +14,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium_stealth import stealth
 # Auto install driver
 from webdriver_manager.chrome import ChromeDriverManager
-from sys import platform
 
 # Build driver
 options = Options()
@@ -51,6 +51,7 @@ if headless_mode:
 def get_element(xpath, timeout=10):
     _element = WebDriverWait(driver=driver, timeout=timeout).until(EC.presence_of_element_located((By.XPATH, xpath)))
     return _element
+
 
 CONTROL = Keys.COMMAND if platform == 'darwin' else Keys.CONTROL
 
