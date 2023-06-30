@@ -26,7 +26,7 @@ google_profile = os.path.join(os.getcwd(), 'profile')
 options.add_argument(f'user-data-dir={google_profile}')
 
 ## Hide or show browser (If hide browser, we can be blocked by CloudFlare or firewall)
-headless_mode = False
+headless_mode = True
 
 if headless_mode:
     options.add_argument("start-maximized")
@@ -60,6 +60,13 @@ with open('rentry.txt', 'r') as f:
     rentry = f.read().split()
     rentry_url = rentry[0]  # https://rentry.co/your-url/edit
     rentry_code = rentry[1]  # 123456
+
+# Check profile is working
+google_login_url = 'https://accounts.google.com'
+driver.get(google_login_url)
+time.sleep(3)
+if google_login_url in driver.current_url:
+    raise Exception('Google profile is not working, please run create_google_profile.py again.')
 
 # Get Metabse session
 driver.get(metabase_url)
