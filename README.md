@@ -11,7 +11,7 @@ Update the Metabase session by Signing in with Google and Saving it to Rentry au
 ## Example files
 `rentry.txt`
 - URL
-- Code password
+- Edit code
 ```text
 https://rentry.co/your-url/edit
 123456
