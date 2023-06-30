@@ -13,6 +13,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium_stealth import stealth
 # Auto install driver
 from webdriver_manager.chrome import ChromeDriverManager
+from sys import platform
 
 # Build driver
 options = Options()
@@ -51,6 +52,7 @@ def get_element(xpath, timeout=10):
     _element = WebDriverWait(driver=driver, timeout=timeout).until(EC.presence_of_element_located((By.XPATH, xpath)))
     return _element
 
+CONTROL = Keys.COMMAND if platform == 'darwin' else Keys.CONTROL
 
 # Prepare input
 with open('metabase_url.txt', 'r') as f:
@@ -66,7 +68,7 @@ google_login_url = 'https://accounts.google.com'
 driver.get(google_login_url)
 time.sleep(3)
 if google_login_url in driver.current_url:
-    raise Exception('Google profile is not working, please run create_google_profile.py again.')
+    raise Exception('Google profile is not working, please run the create_google_profile script.')
 
 # Get Metabse session
 driver.get(metabase_url)
@@ -82,7 +84,7 @@ driver.get(rentry_url)
 # Clear content and click to generate <pre><span>
 xpath = '//*[@id="text"]/div/div[5]/div[1]/div/div/div/div[5]'
 element = get_element(xpath=xpath)
-element.send_keys(Keys.COMMAND + "a") # COMMAND for MacOS and CONTROL for Windows and Ubuntu
+element.send_keys(CONTROL + 'a')
 time.sleep(1)
 element.send_keys(Keys.DELETE)
 time.sleep(1)
