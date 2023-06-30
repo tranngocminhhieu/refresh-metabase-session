@@ -1,4 +1,4 @@
-# refresh-metabase-session
+# Refresh Metabase session
 Update the Metabase session by Signing in with Google and Saving it to Rentry automatically.
 
 ## How to use
