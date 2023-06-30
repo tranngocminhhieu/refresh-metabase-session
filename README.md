@@ -5,7 +5,7 @@ Update the Metabase session by Signing in with Google and Saving it to Rentry au
 - Step 1: Create `profile` folder by running the `create_google_profile.py` and logging in Google Account manually.
 - Step 2: Prepare `metabase_url.txt` and `rentry.txt`.
 - Step 3: Run the `refresh_metabase_session.py`.
-- Step 4 (optional): Copy this directory to your server and set a crontab. Make sure `refresh_metabase_session.py`, `metabase_url.txt`, `rentry.txt`, and `profile` folder in the same place.
+- Step 4 (optional): Copy this directory to your server and set a crontab. Make sure `refresh_metabase_session.py`, `metabase_url.txt`, `rentry.txt`, and `profile` folder in the same place. I recommend compressing all files into a zip file to make it easier to copy to the server.
 
 ## Example files
 `rentry.txt`
