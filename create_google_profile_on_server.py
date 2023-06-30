@@ -54,7 +54,7 @@ def get_element(xpath, timeout=10):
 
 
 def user_send_keys():
-    guide = 'Input keys: type text or use shortcut number\n1.ENTER\n2.TAB\n3.CONTROL A\n4.DELETE\n6.Stop'
+    guide = 'Input keys: type text or use shortcut number\n1.ENTER\n2.TAB\n3.CONTROL A\n4.DELETE\n6.Stop\n'
     keys_dict = {'1': Keys.ENTER, '2': Keys.TAB, '3': Keys.CONTROL + 'a', '4': Keys.DELETE}
     user_input = input(guide)
     if user_input in keys_dict:
