@@ -1,5 +1,6 @@
 # Import packages
 import os
+import time
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -21,6 +22,7 @@ google_login_url = 'https://accounts.google.com'
 driver.get(google_login_url)
 
 while google_login_url not in driver.current_url:
+    time.sleep(3)
     break
 
 driver.close()
