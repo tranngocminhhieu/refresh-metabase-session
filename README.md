@@ -1,2 +1,2 @@
 # refresh-metabase-session
-Update Metabase session by login with Google and save to Rentry
+Update Metabase session by Logging with Google and Saving to Rentry
