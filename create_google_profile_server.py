@@ -1,4 +1,3 @@
-# Import packages
 import os
 import time
 
@@ -10,10 +9,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-# Bypass CloudFlare in headless mode (https://github.com/diprajpatra/selenium-stealth)
 from selenium_stealth import stealth
-# Auto install driver
 from webdriver_manager.chrome import ChromeDriverManager
+from sys import platform
 
 # Build driver
 options = Options()
@@ -36,6 +34,7 @@ if headless_mode:
     options.add_experimental_option('useAutomationExtension', False)
 
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+actions = ActionChains(driver)
 
 if headless_mode:
     stealth(driver=driver,
@@ -47,35 +46,47 @@ if headless_mode:
             fix_hairline=True,
             )
 
-
 def get_element(xpath, timeout=10):
     _element = WebDriverWait(driver=driver, timeout=timeout).until(EC.presence_of_element_located((By.XPATH, xpath)))
     return _element
 
-
 def user_send_keys():
-    guide = 'Input keys: type text or use shortcut number\n1.ENTER\n2.TAB\n3.CONTROL A\n4.DELETE\n6.Stop\n'
-    keys_dict = {'1': Keys.ENTER, '2': Keys.TAB, '3': Keys.CONTROL + 'a', '4': Keys.DELETE}
-    user_input = input(guide)
-    if user_input in keys_dict:
-        keys = keys_dict[user_input]
+    CONTROL = Keys.COMMAND if platform == 'darwin' else Keys.CONTROL
+    user_input = input('Send keys:')
+    if user_input == '1':
+        actions.send_keys(Keys.ENTER).perform()
+    elif user_input == '2':
+        actions.send_keys(Keys.TAB).perform()
+    elif user_input == '3':
+        actions.key_down(Keys.SHIFT).send_keys(Keys.TAB).key_up(Keys.SHIFT).perform()
+    elif user_input == '4':
+        actions.key_down(CONTROL).send_keys('a').key_up(CONTROL).perform()
+    elif user_input == '5':
+        actions.send_keys(Keys.DELETE).perform()
     else:
-        keys = user_input
-    actions.send_keys(keys).perform()
+        actions.send_keys(user_input).perform()
     return user_input
 
-
-actions = ActionChains(driver)
-
 google_login_url = 'https://accounts.google.com'
-
 driver.get(google_login_url)
+
+print(f'''Please check the screenshot file and send the appropriate keys to control the browser.
+
+Your screenshot: {os.path.join(os.getcwd(), 'screenshot.png')}
+
+Some keyboard shortcuts you can use:
+1. ENTER
+2. TAB
+3. SHIFT TAB
+4. SELECT ALL (CONTROL A)
+5. DELETE
+6. Stop the loop of sending keys and exit the program.
+''')
 
 while google_login_url in driver.current_url:
     driver.save_screenshot('screenshot.png')
     current_keys = user_send_keys()
     if current_keys == '6':
         break
-    time.sleep(3)
 
 driver.close()
