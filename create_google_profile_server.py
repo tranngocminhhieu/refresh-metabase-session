@@ -45,12 +45,6 @@ if headless_mode:
             fix_hairline=True,
             )
 
-
-def get_element(xpath, timeout=10):
-    _element = WebDriverWait(driver=driver, timeout=timeout).until(EC.presence_of_element_located((By.XPATH, xpath)))
-    return _element
-
-
 def user_send_keys():
     CONTROL = Keys.COMMAND if platform == 'darwin' else Keys.CONTROL
     user_input = input('Send keys:')
