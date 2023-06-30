@@ -1,5 +1,6 @@
 import os
 import time
+from datetime import datetime
 from sys import platform
 
 from selenium import webdriver
@@ -11,6 +12,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium_stealth import stealth
 from webdriver_manager.chrome import ChromeDriverManager
+
+print(f'Start refresh Metabase session {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}')
 
 # Build driver
 options = Options()
@@ -62,6 +65,7 @@ with open('rentry.txt', 'r') as f:
     rentry_code = rentry[1]
 
 # Check profile is working
+print('Check if Google profile is working')
 google_login_url = 'https://accounts.google.com'
 driver.get(google_login_url)
 time.sleep(3)
@@ -69,6 +73,7 @@ if google_login_url in driver.current_url:
     raise Exception('Google profile is not working, please run the create_google_profile script.')
 
 # Get Metabse session
+print('Get Metabase session')
 driver.get(metabase_url)
 driver.delete_all_cookies()
 driver.get(metabase_url)
@@ -78,8 +83,10 @@ login_button.click()
 time.sleep(5)
 metabase_session = driver.get_cookie('metabase.SESSION')['value']
 
+# Update Metabase session to Rentry
+print('Update Metabase session to Rentry')
 driver.get(rentry_url)
-# Clear content and click to generate <pre><span>
+## Clear content and click to generate <pre><span>
 xpath = '//*[@id="text"]/div/div[5]/div[1]/div/div/div/div[5]'
 element = get_element(xpath=xpath)
 element.send_keys(CONTROL + 'a')
@@ -89,22 +96,22 @@ time.sleep(1)
 element.click()
 time.sleep(3)
 
-# Input Credentials
+## Input Credentials
 element = get_element(xpath='//*[@id="text"]/div/div[5]/div[1]/div/div/div/div[5]/pre/span')
 element.send_keys(metabase_session)
 time.sleep(3)
 
-# Click edit code
+## Click edit code
 element = get_element(xpath='//*[@id="id_edit_code"]')
 element.click()
 element.send_keys(rentry_code)
 time.sleep(3)
 
-# Save
+## Save
 get_element(xpath='//*[@id="submitButton"]').click()
 time.sleep(3)
 
-# Wait to see success message
+## Wait to see success message
 element = get_element(xpath='/html/body/div/div/div[1]/div[1]/div/ul/li')
 
 driver.close()
