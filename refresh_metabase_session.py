@@ -1,4 +1,3 @@
-# Import packages
 import os
 import time
 from sys import platform
@@ -10,9 +9,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-# Bypass CloudFlare in headless mode (https://github.com/diprajpatra/selenium-stealth)
 from selenium_stealth import stealth
-# Auto install driver
 from webdriver_manager.chrome import ChromeDriverManager
 
 # Build driver
@@ -57,12 +54,12 @@ CONTROL = Keys.COMMAND if platform == 'darwin' else Keys.CONTROL
 
 # Prepare input
 with open('metabase_url.txt', 'r') as f:
-    metabase_url = f.read()  # 'https://metabase.your-domain.com'
+    metabase_url = f.read()
 
 with open('rentry.txt', 'r') as f:
     rentry = f.read().split()
-    rentry_url = rentry[0]  # https://rentry.co/your-url/edit
-    rentry_code = rentry[1]  # 123456
+    rentry_url = rentry[0]
+    rentry_code = rentry[1]
 
 # Check profile is working
 google_login_url = 'https://accounts.google.com'
