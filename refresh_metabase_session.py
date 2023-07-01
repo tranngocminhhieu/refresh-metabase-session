@@ -6,14 +6,12 @@ import urllib.request
 from datetime import datetime
 from http.cookies import SimpleCookie
 from json import loads as json_loads
-from sys import platform
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium_stealth import stealth
@@ -61,8 +59,6 @@ def rentry_edit(url, edit_code, text):
         client.post(f'https://rentry.co/api/edit/{url}', payload, headers={'Referer': 'https://rentry.co'}).data)
 
 
-print(f'Start refresh Metabase session {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}')
-
 # Build driver
 options = Options()
 
@@ -102,8 +98,6 @@ def get_element(xpath, timeout=10):
     return _element
 
 
-CONTROL = Keys.COMMAND if platform == 'darwin' else Keys.CONTROL
-
 # Prepare input
 with open('metabase_url.txt', 'r') as f:
     metabase_url = f.read()
@@ -113,6 +107,8 @@ with open('rentry.txt', 'r') as f:
     rentry_url = rentry[0]
     rentry_url_edit = f'https://rentry.co/{rentry[0]}/edit'
     rentry_code = rentry[1]
+
+print(f'Start refresh Metabase session {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}')
 
 # Check profile is working
 print('Check if Google profile is working')
@@ -142,6 +138,7 @@ print(metabase_session)
 # actions.send_keys(Keys.TAB).perform()
 # actions.send_keys(Keys.TAB).perform()
 # time.sleep(1)
+# CONTROL = Keys.COMMAND if platform == 'darwin' else Keys.CONTROL
 # actions.key_down(CONTROL).send_keys('a').key_up(CONTROL).perform()
 # time.sleep(1)
 # actions.send_keys(Keys.DELETE).perform()
