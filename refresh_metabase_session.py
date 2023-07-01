@@ -55,8 +55,7 @@ def rentry_edit(url, edit_code, text):
         'text': text
     }
 
-    return json_loads(
-        client.post(f'https://rentry.co/api/edit/{url}', payload, headers={'Referer': 'https://rentry.co'}).data)
+    return json_loads(client.post(f'https://rentry.co/api/edit/{url}', payload, headers={'Referer': 'https://rentry.co'}).data)
 
 
 # Build driver
@@ -124,7 +123,7 @@ driver.get(metabase_url)
 driver.delete_all_cookies()
 driver.get(metabase_url)
 time.sleep(3)
-login_button = get_element(xpath='//*[@id="root"]/div/div[1]/div[2]/div/div[2]/div[1]/div/a')
+login_button = get_element(xpath='//*[@id="root"]/div/div[1]/div[2]/div/div[2]/div[1]/div/a') # Replace your "Login with Google" button xpath here
 login_button.click()
 time.sleep(5)
 metabase_session = driver.get_cookie('metabase.SESSION')['value']
