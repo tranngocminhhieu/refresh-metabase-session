@@ -9,9 +9,9 @@ Update the Metabase session by Signing in with Google and Saving it to Rentry au
 *Note: The `create_google_profile` is not working for personal Gmail, but working with a Google Workspace account.*
 
 ## Example files
-`rentry.txt`: URL and Edit code.
+`rentry.txt`: URL id and Edit code.
 ```text
-https://rentry.co/your-url/edit
+vk47a3
 123456
 ```
 
