@@ -84,6 +84,7 @@ login_button = get_element(xpath='//*[@id="root"]/div/div[1]/div[2]/div/div[2]/d
 login_button.click()
 time.sleep(5)
 metabase_session = driver.get_cookie('metabase.SESSION')['value']
+print(metabase_session)
 
 # Update Metabase session to Rentry
 print('Update Metabase session to Rentry')
