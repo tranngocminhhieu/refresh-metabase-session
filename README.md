@@ -15,7 +15,7 @@ vk47a3
 123456
 ```
 
-`metabase_url.txt`: Metabase domain.
+`metabase_url.txt`: Metabase domain URL.
 ```text
 https://your-metabase-domain.com
 ```
