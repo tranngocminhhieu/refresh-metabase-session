@@ -1,11 +1,8 @@
-import http.cookiejar
 import os
 import time
-import urllib.parse
-import urllib.request
 from datetime import datetime
 from http.cookies import SimpleCookie
-from json import loads as json_loads
+import requests
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -18,45 +15,28 @@ from selenium_stealth import stealth
 from webdriver_manager.chrome import ChromeDriverManager
 
 
-# https://github.com/radude/rentry/blob/master/rentry
-class UrllibClient:
-    """Simple HTTP Session Client, keeps cookies."""
 
-    def __init__(self):
-        self.cookie_jar = http.cookiejar.CookieJar()
-        self.opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(self.cookie_jar))
-        urllib.request.install_opener(self.opener)
+def edit_rentry(url_id, text, edit_code):
+    '''
+    Edit Rentry with API
+    Reference: https://github.com/radude/rentry/blob/master/rentry
+    :param url_id: URL path without Rentry domain.
+    :param text: The content you want to update.
+    :param edit_code: The Edit code.
+    '''
+    # We need to keep one session and use csrftoken to send API
+    session = requests.Session()
+    cookie = SimpleCookie()
+    cookie.load(vars(session.get('https://rentry.co'))['headers']['Set-Cookie'])
 
-    def get(self, url, headers={}):
-        request = urllib.request.Request(url, headers=headers)
-        return self._request(request)
-
-    def post(self, url, data=None, headers={}):
-        postdata = urllib.parse.urlencode(data).encode()
-        request = urllib.request.Request(url, postdata, headers)
-        return self._request(request)
-
-    def _request(self, request):
-        response = self.opener.open(request)
-        response.status_code = response.getcode()
-        response.data = response.read().decode('utf-8')
-        return response
-
-
-def rentry_edit(url, edit_code, text):
-    client, cookie = UrllibClient(), SimpleCookie()
-
-    cookie.load(vars(client.get('https://rentry.co'))['headers']['Set-Cookie'])
     csrftoken = cookie['csrftoken'].value
-
     payload = {
         'csrfmiddlewaretoken': csrftoken,
         'edit_code': edit_code,
         'text': text
     }
 
-    return json_loads(client.post(f'https://rentry.co/api/edit/{url}', payload, headers={'Referer': 'https://rentry.co'}).data)
-
+    session.post(url=f'https://rentry.co/api/edit/{url_id}', data=payload, headers={'Referer': 'https://rentry.co'})
 
 # Build driver
 options = Options()
@@ -103,9 +83,8 @@ with open('metabase_url.txt', 'r') as f:
 
 with open('rentry.txt', 'r') as f:
     rentry = f.read().split()
-    rentry_url = rentry[0]
-    rentry_url_edit = f'https://rentry.co/{rentry[0]}/edit'
-    rentry_code = rentry[1]
+    rentry_url_id = rentry[0]
+    rentry_edit_code = rentry[1]
 
 print(f'Start refresh Metabase session {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}')
 
@@ -131,7 +110,7 @@ print(metabase_session)
 
 # # Update Metabase session to Rentry
 # print('Update Metabase session to Rentry')
-# driver.get(rentry_url_edit)
+# driver.get(f'https://rentry.co/{rentry_url_id}/edit')
 # actions.send_keys(Keys.TAB).perform()
 # actions.send_keys(Keys.TAB).perform()
 # actions.send_keys(Keys.TAB).perform()
@@ -148,7 +127,7 @@ print(metabase_session)
 # ## Click edit code
 # element = get_element(xpath='//*[@id="id_edit_code"]')
 # element.click()
-# element.send_keys(rentry_code)
+# element.send_keys(rentry_edit_code)
 # time.sleep(3)
 #
 # ## Save
@@ -159,4 +138,4 @@ driver.close()
 
 # Update Metabase session to Rentry
 print('Update Metabase session to Rentry')
-rentry_edit(url=rentry_url, edit_code=rentry_code, text=metabase_session)
+edit_rentry(url_id=rentry_url_id, text=metabase_session, edit_code=rentry_edit_code)
