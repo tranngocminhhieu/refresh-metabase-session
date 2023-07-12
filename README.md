@@ -1,5 +1,5 @@
 # Refresh Metabase session
-Update the Metabase session by Signing in with Google and Saving it to Rentry automatically.
+Data analysts who use Metabase to get data automatically need a Metabase session. But the Metabase session will automatically expire after some time (usually 7 days). These scripts will help you update the Metabase session by Signing in with Google and Saving it to Rentry automatically.
 
 ![Refresh the Metabase session](images/thumb.png)
 
@@ -34,7 +34,7 @@ Metabase domain URL and *Sign in with Google* button XPath.
 https://your-metabase-domain.com
 //*[@id="root"]/div/div[1]/div[2]/div/div[2]/div[1]/div/a
 ```
-How to get *Sign in with Google* button XPATH?
+How to get *Sign in with Google* button XPath?
 - Visit your Metabase.
 - Right-click on *Sign in with Google button*, choose *Inspect*.
 - Right-click on the element, choose *Copy XPath*.
