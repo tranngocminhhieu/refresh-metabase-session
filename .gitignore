@@ -160,9 +160,10 @@ cython_debug/
 .idea/
 metabase_url.txt
 profile
-rentry.txt
+refresh_with_google_profile/rentry.txt
 *.zip
 profile*
 screenshot.png
 main.sh
-metabase.txt
+refresh_with_google_profile/metabase.txt
+refresh_with_password/metabase.txt
