@@ -1,44 +1,18 @@
 # Refresh Metabase session
-Data analysts who use Metabase to get data automatically need a Metabase session. But the Metabase session will automatically expire after some time (usually 7 days). These scripts will help you update the Metabase session by Signing in with Google and Saving it to Rentry automatically.
+Data analysts who use Metabase to get data automatically need a Metabase session. But the Metabase session will automatically expire after some time (usually 7 days).
+
+These scripts will help you update the Metabase session to Rentry automatically.
 
 ![Refresh the Metabase session](images/thumb.png)
 
-## Usage
-**Step 1: Create `profile` folder.**
+## Refresh with Google profile
+We will sign in with Google account to create profile folder (just the first time), then we will use *Sign in with Google* button to sign in Metabase, and then we get the Metabase session.
 
-Run the `create_google_profile` script and sign in your Google Account manually in the first time.
+[Go to the script](refresh_with_google_profile)
 
-*Note: The script is not working for personal Gmail, but working with a Google Workspace account.*
+## Refresh with Metabase password
+We will sign in Metabase with our username and password, and then we get the Metabase session.
 
-**Step 2: Prepare `metabase.txt` and `rentry.txt`.**
-
-Read the example files.
-
-**Step 3: Refresh the Metabase session.**
-
-Run the `refresh_metabase_session` script to refresh Metabase session automatically. Place the script on your server and set a crontab to schedule for the script.
-
-## Example files
-`rentry.txt`
-
-URL id and Edit code.
-```text
-vk47a3
-123456
-```
-
-`metabase.txt`
-
-Metabase domain URL and *Sign in with Google* button XPath.
-```text
-https://your-metabase-domain.com
-//*[@id="root"]/div/div[1]/div[2]/div/div[2]/div[1]/div/a
-```
-How to get *Sign in with Google* button XPath?
-- Visit your Metabase.
-- Right-click on *Sign in with Google button*, choose *Inspect*.
-- Right-click on the element, choose *Copy XPath*.
-
-![How to get Sign in with Google button XPath](images/how-to-get-button-xpath.png)
+[Go to the script](refresh_with_password)
 
 *Thank for your reading!*

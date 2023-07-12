@@ -51,7 +51,7 @@ def get_metabase_session(metabase_url, button_xpath, headless_mode=True):
     options.add_argument('--no-sandbox')
 
     # Google user
-    google_profile = os.path.join(os.getcwd(), 'profile')
+    google_profile = os.path.join(os.getcwd(), '../profile')
     options.add_argument(f'user-data-dir={google_profile}')
 
     # Hide or show browser (If hide browser, we can be blocked by CloudFlare or firewall)
@@ -99,11 +99,11 @@ def get_metabase_session(metabase_url, button_xpath, headless_mode=True):
 
 
 if __name__ == '__main__':
-    with open('rentry.txt', 'r') as f:
+    with open('../rentry.txt', 'r') as f:
         rentry = f.read().split()
         url_id = rentry[0]
         edit_code = rentry[1]
-    with open('metabase.txt', 'r') as f:
+    with open('../metabase.txt', 'r') as f:
         metabase = f.read().split()
         metabase_url = metabase[0]
         button_xpath = metabase[1]

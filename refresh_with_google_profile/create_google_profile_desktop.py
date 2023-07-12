@@ -10,7 +10,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 options = Options()
 
 ## Google user
-google_profile = os.path.join(os.getcwd(), 'profile')
+google_profile = os.path.join(os.getcwd(), '../profile')
 options.add_argument(f'user-data-dir={google_profile}')
 
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
