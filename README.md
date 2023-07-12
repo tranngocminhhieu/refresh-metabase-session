@@ -15,7 +15,8 @@ vk47a3
 123456
 ```
 
-`metabase_url.txt`: Metabase domain URL.
+`metabase.txt`: Metabase domain URL and Sign in with Google button XPATH.
 ```text
 https://your-metabase-domain.com
+//*[@id="root"]/div/div[1]/div[2]/div/div[2]/div[1]/div/a
 ```
