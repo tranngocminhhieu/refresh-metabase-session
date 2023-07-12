@@ -1,6 +1,8 @@
 # Refresh Metabase session
 Update the Metabase session by Signing in with Google and Saving it to Rentry automatically.
 
+![Refresh the Metabase session](images/thumb.png)
+
 ## Usage
 **Step 1: Create `profile` folder.**
 
