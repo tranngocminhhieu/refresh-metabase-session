@@ -13,6 +13,6 @@ We will sign in with Google account to create profile folder (just the first tim
 ## Refresh with Metabase password
 We will sign in Metabase with our username and password, and then we get the Metabase session.
 
-[More detail](refresh_with_password)
+[More detail](refresh_with_metabase_password)
 
 *Thank for your reading!*
