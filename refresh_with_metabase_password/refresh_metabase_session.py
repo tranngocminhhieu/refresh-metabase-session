@@ -39,7 +39,9 @@ def edit_rentry(url_id, text, edit_code):
 def get_metabase_session(metabase_url, username, password, headless_mode=True):
     '''
     Get Metabase Session with Metabase password
-    :param metabase_url: Your Metabase URL
+    :param metabase_url: Your Metabase URL that has username and password fields
+    :param username: Metabase username or email
+    :param password: Metabase password
     :param headless_mode: Show or hide browser when getting Metabase Session
     :return: Metabase Session
     '''
