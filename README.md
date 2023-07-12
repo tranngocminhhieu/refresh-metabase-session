@@ -8,11 +8,11 @@ These scripts will help you update the Metabase session to Rentry automatically.
 ## Refresh with Google profile
 We will sign in with Google account to create profile folder (just the first time), then we will use *Sign in with Google* button to sign in Metabase, and then we get the Metabase session.
 
-[Go to the script](refresh_with_google_profile)
+[More detail](refresh_with_google_profile)
 
 ## Refresh with Metabase password
 We will sign in Metabase with our username and password, and then we get the Metabase session.
 
-[Go to the script](refresh_with_password)
+[More detail](refresh_with_password)
 
 *Thank for your reading!*
