@@ -38,7 +38,7 @@ def edit_rentry(url_id, text, edit_code):
 
 def get_metabase_session(metabase_url, username, password, headless_mode=True):
     '''
-    Get Metabase Session with Google profile that has been logged-in with your Google Workspace account
+    Get Metabase Session with Metabase password
     :param metabase_url: Your Metabase URL
     :param headless_mode: Show or hide browser when getting Metabase Session
     :return: Metabase Session
