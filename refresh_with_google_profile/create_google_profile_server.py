@@ -17,7 +17,7 @@ options = Options()
 options.add_argument('--no-sandbox')
 
 ## Google user
-google_profile = os.path.join(os.getcwd(), '../profile')
+google_profile = os.path.join(os.getcwd(), 'profile')
 options.add_argument(f'user-data-dir={google_profile}')
 
 ## Hide or show browser (If hide browser, we can be blocked by CloudFlare or firewall)

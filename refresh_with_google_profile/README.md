@@ -29,10 +29,9 @@ vk47a3
 
 `metabase.txt`
 
-Metabase domain URL and *Sign in with Google* button XPath.
+Metabase URL
 ```text
 https://your-metabase-domain.com
-//*[@id="root"]/div/div[1]/div[2]/div/div[2]/div[1]/div/a
 ```
 How to get *Sign in with Google* button XPath?
 - Visit your Metabase.
