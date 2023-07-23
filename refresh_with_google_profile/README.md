@@ -33,11 +33,5 @@ Metabase URL
 ```text
 https://your-metabase-domain.com
 ```
-How to get *Sign in with Google* button XPath?
-- Visit your Metabase.
-- Right-click on *Sign in with Google button*, choose *Inspect*.
-- Right-click on the element, choose *Copy XPath*.
-
-![How to get Sign in with Google button XPath](../images/how-to-get-button-xpath.png)
 
 *Thank for your reading!*
