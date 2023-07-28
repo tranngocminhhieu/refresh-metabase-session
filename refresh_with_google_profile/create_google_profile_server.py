@@ -1,4 +1,5 @@
 import os
+import time
 from sys import platform
 
 from selenium import webdriver
@@ -82,5 +83,6 @@ while google_login_url in driver.current_url:
     current_keys = user_send_keys()
     if current_keys == '6':
         break
+    time.sleep(5)
 
 driver.close()

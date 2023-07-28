@@ -60,7 +60,12 @@ def get_metabase_session(metabase_url, headless_mode=True):
         options.add_experimental_option("excludeSwitches", ["enable-automation"])
         options.add_experimental_option('useAutomationExtension', False)
 
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+    try:
+        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+    except:
+        LATEST_RELEASE = requests.get('https://chromedriver.storage.googleapis.com/LATEST_RELEASE').text
+        driver = webdriver.Chrome(service=Service(ChromeDriverManager(driver_version=LATEST_RELEASE).install()), options=options)
+
     actions = ActionChains(driver)
 
     if headless_mode:
@@ -79,18 +84,20 @@ def get_metabase_session(metabase_url, headless_mode=True):
     time.sleep(3)
     if google_login_url in driver.current_url:
         raise Exception('Google profile is not working, please run the create_google_profile script.')
-
+    driver.save_screenshot('screenshot_google.png')
     # Get Metabse session
     driver.get(metabase_url)
     driver.delete_all_cookies()
     driver.get(metabase_url)
     time.sleep(5)
+    driver.save_screenshot('screenshot_before_login.png')
     actions.send_keys(Keys.TAB).perform()
     time.sleep(1)
     actions.send_keys(Keys.TAB).perform()
     time.sleep(1)
     actions.send_keys(Keys.ENTER).perform()
     time.sleep(5)
+    driver.save_screenshot('screenshot_after_login.png')
     metabase_session = driver.get_cookie('metabase.SESSION')['value']
     driver.close()
     return metabase_session
@@ -104,7 +111,7 @@ if __name__ == '__main__':
         metabase_url = f.read()
 
     print(f'Start refresh Metabase session {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}')
-    metabase_session = get_metabase_session(metabase_url=metabase_url)
+    metabase_session = get_metabase_session(metabase_url=metabase_url, headless_mode=True)
     print(metabase_session)
     print('Update Metabase session to Rentry')
     edit_rentry(url_id=url_id, text=metabase_session, edit_code=edit_code)
